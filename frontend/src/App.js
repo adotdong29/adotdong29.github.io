@@ -1,5 +1,6 @@
 // src/App.js
 import React, { useState, useEffect, useRef } from 'react';
+import './styles/App.css';
 
 function App() {
   const canvasRef = useRef(null);
@@ -39,48 +40,48 @@ function App() {
   // Platforms - much more spaced out across a larger world
   const [platforms, setPlatforms] = useState([
     // Starting area
-    { x: 0, y: 1800, width: 400, height: 50, color: '#fff' },
+    { x: 0, y: 1800, width: 400, height: 50, color: '#444' },
     
     // Path 1 - going right
     { x: 500, y: 1750, width: 150, height: 20, color: '#ff55ee' },
     { x: 750, y: 1700, width: 120, height: 20, color: '#55ffee' },
-    { x: 950, y: 1650, width: 180, height: 20, color: '#fff' },
+    { x: 950, y: 1650, width: 180, height: 20, color: '#444' },
     
     // Path 2 - going up
     { x: 1200, y: 1600, width: 100, height: 20, color: '#ffff55' },
-    { x: 1100, y: 1500, width: 120, height: 20, color: '#fff' },
+    { x: 1100, y: 1500, width: 120, height: 20, color: '#444' },
     { x: 1250, y: 1400, width: 150, height: 20, color: '#ff5555' },
     
     // Path 3 - going left
     { x: 1050, y: 1300, width: 180, height: 20, color: '#55ff55' },
-    { x: 800, y: 1250, width: 150, height: 20, color: '#fff' },
+    { x: 800, y: 1250, width: 150, height: 20, color: '#444' },
     { x: 550, y: 1200, width: 170, height: 20, color: '#5555ff' },
     
     // Path 4 - going up and right
-    { x: 600, y: 1100, width: 120, height: 20, color: '#fff' },
+    { x: 600, y: 1100, width: 120, height: 20, color: '#444' },
     { x: 800, y: 1000, width: 130, height: 20, color: '#ff55ff' },
     { x: 1000, y: 900, width: 150, height: 20, color: '#ff5555' },
     
     // Path 5 - going far right
-    { x: 1300, y: 850, width: 180, height: 20, color: '#fff' },
+    { x: 1300, y: 850, width: 180, height: 20, color: '#444' },
     { x: 1600, y: 800, width: 200, height: 20, color: '#55ffff' },
     { x: 1900, y: 750, width: 150, height: 20, color: '#ffff55' },
     
     // Path 6 - going down
-    { x: 2200, y: 800, width: 120, height: 20, color: '#fff' },
+    { x: 2200, y: 800, width: 120, height: 20, color: '#444' },
     { x: 2150, y: 900, width: 130, height: 20, color: '#ff5555' },
     { x: 2250, y: 1000, width: 140, height: 20, color: '#5555ff' },
     
     // Path 7 - going left
-    { x: 2050, y: 1050, width: 150, height: 20, color: '#fff' },
+    { x: 2050, y: 1050, width: 150, height: 20, color: '#444' },
     { x: 1800, y: 1100, width: 170, height: 20, color: '#55ff55' },
     { x: 1550, y: 1150, width: 160, height: 20, color: '#ff55ff' },
     
     // Path 8 - final approach
-    { x: 1600, y: 1000, width: 140, height: 20, color: '#fff' },
+    { x: 1600, y: 1000, width: 140, height: 20, color: '#444' },
     { x: 1750, y: 850, width: 120, height: 20, color: '#ffff55' },
     { x: 1900, y: 700, width: 130, height: 20, color: '#ff5555' },
-    { x: 2050, y: 550, width: 150, height: 20, color: '#fff' },
+    { x: 2050, y: 550, width: 150, height: 20, color: '#444' },
     { x: 2300, y: 450, width: 200, height: 50, color: '#55ffff' },
     
     // Moving platforms
@@ -372,43 +373,38 @@ function App() {
       { x: 2000, y: 700, radius: 10, type: 'energy', color: '#3498db', active: true }
     ]);
     
-    // Reset drones
-    setDrones([
-      // Starting area drones
-      { id: 1, x: 200, y: 1700, vx: 1, vy: 0, radius: 12, color: '#f55', type: 'patroller', timer: 0, shootTimer: 0, shootSpeed: 40 },
-      
-      // Path 1 drones
-      { id: 2, x: 600, y: 1650, vx: 0, vy: 1, radius: 14, color: '#f5f', type: 'vertical', timer: 0, shootTimer: 0, shootSpeed: 60 },
-      { id: 3, x: 850, y: 1600, vx: 1.5, vy: 0, radius: 13, color: '#ff5', type: 'patroller', timer: 0, shootTimer: 0, shootSpeed: 50 },
-      
-      // Path 2 drones
-      { id: 4, x: 1150, y: 1450, vx: 0, vy: 0, radius: 18, color: '#5ff', type: 'turret', timer: 0, shootTimer: 0, shootSpeed: 30 },
-      
-      // Path 3 drones
-      { id: 5, x: 900, y: 1250, vx: 1.2, vy: 0.8, radius: 15, color: '#f95', type: 'bouncer', timer: 0, shootTimer: 0, shootSpeed: 40 },
-      { id: 6, x: 650, y: 1150, vx: 1.5, vy: 0, radius: 14, color: '#95f', type: 'patroller', timer: 0, shootTimer: 0, shootSpeed: 45 },
-      
-      // Path 4 drones
-      { id: 7, x: 700, y: 1050, vx: 0, vy: 0, radius: 18, color: '#5f5', type: 'turret', timer: 0, shootTimer: 0, shootSpeed: 35 },
-      { id: 8, x: 900, y: 950, vx: 1.5, vy: 0, radius: 12, color: '#55f', type: 'chaser', timer: 0, shootTimer: 0, shootSpeed: 55 },
-      
-      // Path 5 drones
-      { id: 9, x: 1400, y: 800, vx: 1, vy: 0, radius: 13, color: '#f55', type: 'patroller', timer: 0, shootTimer: 0, shootSpeed: 40 },
-      { id: 10, x: 1750, y: 750, vx: 0, vy: 1, radius: 16, color: '#ff5', type: 'vertical', timer: 0, shootTimer: 0, shootSpeed: 50 },
-      { id: 11, x: 2000, y: 700, vx: 1.2, vy: 0.8, radius: 15, color: '#f5f', type: 'bouncer', timer: 0, shootTimer: 0, shootSpeed: 35 },
-      
-      // Path 6 & 7 drones
-      { id: 12, x: 2150, y: 850, vx: 0, vy: 0, radius: 20, color: '#5ff', type: 'turret', timer: 0, shootTimer: 0, shootSpeed: 25 },
-      { id: 13, x: 1900, y: 1050, vx: 1.5, vy: 0, radius: 14, color: '#f95', type: 'patroller', timer: 0, shootTimer: 0, shootSpeed: 45 },
-      { id: 14, x: 1650, y: 1100, vx: 1.2, vy: 0.8, radius: 15, color: '#55f', type: 'bouncer', timer: 0, shootTimer: 0, shootSpeed: 40 },
-      
-      // Final approach drones
-      { id: 15, x: 1800, y: 800, vx: 1, vy: 0, radius: 14, color: '#f55', type: 'patroller', timer: 0, shootTimer: 0, shootSpeed: 30 },
-      { id: 16, x: 2000, y: 650, vx: 0, vy: 1, radius: 13, color: '#5f5', type: 'vertical', timer: 0, shootTimer: 0, shootSpeed: 35 },
-      
-      // Boss drone near the exit
-      { id: 17, x: 2300, y: 400, vx: 0.5, vy: 0.5, radius: 22, color: '#f55', type: 'boss', timer: 0, shootTimer: 0, health: 100, shootSpeed: 20 }
-    ]);
+// Reset drones - spread out more across the level
+setDrones([
+  // Starting area drone (just one)
+  { id: 1, x: 200, y: 1700, vx: 1, vy: 0, radius: 12, color: '#f55', type: 'patroller', timer: 0, shootTimer: 0, shootSpeed: 40 },
+  
+  // Path 1 drone (reduced count)
+  { id: 2, x: 650, y: 1650, vx: 0, vy: 1, radius: 14, color: '#f5f', type: 'vertical', timer: 0, shootTimer: 0, shootSpeed: 60 },
+  
+  // Path 2 drone (spread out)
+  { id: 3, x: 1150, y: 1450, vx: 0, vy: 0, radius: 18, color: '#5ff', type: 'turret', timer: 0, shootTimer: 0, shootSpeed: 30 },
+  
+  // Path 3 drone
+  { id: 4, x: 750, y: 1250, vx: 1.2, vy: 0.8, radius: 15, color: '#f95', type: 'bouncer', timer: 0, shootTimer: 0, shootSpeed: 40 },
+  
+  // Path 4 drone
+  { id: 5, x: 700, y: 1050, vx: 0, vy: 0, radius: 18, color: '#5f5', type: 'turret', timer: 0, shootTimer: 0, shootSpeed: 35 },
+  
+  // Path 5 drones (spread out)
+  { id: 6, x: 1500, y: 800, vx: 1, vy: 0, radius: 13, color: '#f55', type: 'patroller', timer: 0, shootTimer: 0, shootSpeed: 40 },
+  { id: 7, x: 1850, y: 750, vx: 0, vy: 1, radius: 16, color: '#ff5', type: 'vertical', timer: 0, shootTimer: 0, shootSpeed: 50 },
+  
+  // Path 6 & 7 drones (more spread)
+  { id: 8, x: 2150, y: 850, vx: 0, vy: 0, radius: 20, color: '#5ff', type: 'turret', timer: 0, shootTimer: 0, shootSpeed: 25 },
+  { id: 9, x: 1800, y: 1100, vx: 1.5, vy: 0, radius: 14, color: '#f95', type: 'patroller', timer: 0, shootTimer: 0, shootSpeed: 45 },
+  
+  // Final approach drones (reduced number, more spread)
+  { id: 10, x: 1750, y: 800, vx: 1, vy: 0, radius: 14, color: '#f55', type: 'patroller', timer: 0, shootTimer: 0, shootSpeed: 30 },
+  { id: 11, x: 2000, y: 650, vx: 0, vy: 1, radius: 13, color: '#5f5', type: 'vertical', timer: 0, shootTimer: 0, shootSpeed: 35 },
+  
+  // Boss drone near the exit
+  { id: 12, x: 2300, y: 400, vx: 0.5, vy: 0.5, radius: 22, color: '#f55', type: 'boss', timer: 0, shootTimer: 0, health: 100, shootSpeed: 20 }
+]);
   };
   
   // Collision detection utility
@@ -448,16 +444,29 @@ function App() {
       const deltaTime = Math.min((time - lastTime) / 1000, 0.1); // Cap at 0.1 to prevent huge jumps
       lastTime = time;
       
-      // Update energy for shield
-      if (mouse.down && energy > 0) {
-        // Activate shield and drain energy
-        setPlayerStats(prev => ({ ...prev, shield: true }));
-        setEnergy(prev => Math.max(0, prev - deltaTime * 30)); // Drain energy while shield is active
-      } else {
-        // Deactivate shield and regenerate energy
-        setPlayerStats(prev => ({ ...prev, shield: false }));
-        setEnergy(prev => Math.min(100, prev + deltaTime * 10)); // Regenerate energy when shield is inactive
-      }
+// In the game loop where energy drains when shield is active
+// In the game loop - make energy drain EXTREMELY slow
+if (mouse.down && energy > 0) {
+  // Activate shield and drain energy at an extremely slow rate
+  setPlayerStats(prev => ({ ...prev, shield: true }));
+  setEnergy(prev => Math.max(0, prev - deltaTime * 2)); // Reduced from 5 to 2
+} else {
+  // Deactivate shield and regenerate energy
+  setPlayerStats(prev => ({ ...prev, shield: false }));
+  setEnergy(prev => Math.min(100, prev + deltaTime * 5)); 
+}
+
+// When energy is 0, drain health MUCH slower
+if (energy <= 0) {
+  setHealth(prev => {
+    const newHealth = prev - deltaTime * 0.8; // Reduced from 3 to 0.8
+    if (newHealth <= 0) {
+      setGameState('gameOver');
+      return 0;
+    }
+    return newHealth;
+  });
+}
       
       // Update moving platforms
       setPlatforms(prevPlatforms => {
@@ -511,6 +520,7 @@ function App() {
         
         // Check platform collisions
         newPlayer.grounded = false;
+        let onPlatform = false;
         
         for (const platform of platforms) {
           if (checkCollision(newPlayer, platform)) {
@@ -539,6 +549,7 @@ function App() {
                 newPlayer.y = platform.y - newPlayer.radius;
                 newPlayer.vy = 0;
                 newPlayer.grounded = true;
+                onPlatform = true;
                 newPlayer.jumping = false;
                 
                 // If standing on a moving platform, move with it
@@ -550,25 +561,28 @@ function App() {
           }
         }
         
-        // Keep player within world bounds
-        if (newPlayer.x - newPlayer.radius < 0) {
-          newPlayer.x = newPlayer.radius;
-          newPlayer.vx = 0;
-        } else if (newPlayer.x + newPlayer.radius > worldSize.width) {
-          newPlayer.x = worldSize.width - newPlayer.radius;
-          newPlayer.vx = 0;
-        }
-        
-        if (newPlayer.y - newPlayer.radius < 0) {
-          newPlayer.y = newPlayer.radius;
-          newPlayer.vy = 0;
-        } else if (newPlayer.y + newPlayer.radius > worldSize.height) {
-          newPlayer.y = worldSize.height - newPlayer.radius;
-          newPlayer.vy = 0;
-          newPlayer.grounded = true;
-          newPlayer.jumping = false;
-        }
-        
+// Keep player within world bounds for x-axis
+if (newPlayer.x - newPlayer.radius < 0) {
+  newPlayer.x = newPlayer.radius;
+  newPlayer.vx = 0;
+} else if (newPlayer.x + newPlayer.radius > worldSize.width) {
+  newPlayer.x = worldSize.width - newPlayer.radius;
+  newPlayer.vx = 0;
+}
+
+// For y-axis, if player falls off platform, they die (n-gon style)
+if (newPlayer.y + newPlayer.radius > worldSize.height) {
+  // Player fell off the world
+  setGameState('gameOver');
+  return newPlayer;
+}
+
+// Upper world bound
+if (newPlayer.y - newPlayer.radius < 0) {
+  newPlayer.y = newPlayer.radius;
+  newPlayer.vy = 0;
+}
+
 // Check if player reached end door
 if (checkCollision(newPlayer, doors.end)) {
   setGameState('win');
@@ -630,13 +644,16 @@ return prevDrones.map(drone => {
       const spreadX = (Math.random() - 0.5) * 2 * accuracy;
       const spreadY = (Math.random() - 0.5) * 2 * accuracy;
       
+      // Slower projectiles for better gameplay
+      const projectileSpeed = newDrone.type === 'boss' ? 4 : 3;
+      
       setProjectiles(prev => [
         ...prev,
         {
           x: newDrone.x,
           y: newDrone.y,
-          vx: (dx / dist + spreadX) * 5,
-          vy: (dy / dist + spreadY) * 5,
+          vx: (dx / dist + spreadX) * projectileSpeed,
+          vy: (dy / dist + spreadY) * projectileSpeed,
           radius: newDrone.type === 'boss' ? 8 : 5,
           color: newDrone.color,
           timer: 0,
@@ -753,37 +770,39 @@ return prevDrones.map(drone => {
     newDrone.vy *= -1;
   }
   
-  // Check collision with player
-  if (checkCircleCollision(newDrone, player)) {
-    // If player has shield, reduce damage or no damage
-    if (!playerStats.shield) {
-      setHealth(prev => {
-        const newHealth = prev - 5;
-        if (newHealth <= 0) {
-          setGameState('gameOver');
-          return 0;
-        }
-        return newHealth;
-      });
+// For drone collisions - MUCH less damage
+if (checkCircleCollision(newDrone, player)) {
+  // If player has shield, NO damage at all
+  if (!playerStats.shield) {
+    setHealth(prev => {
+      // Drastically reduce damage rate
+      const newHealth = prev - 1; // Reduced from 3 to 1
+      if (newHealth <= 0) {
+        setGameState('gameOver');
+        return 0;
+      }
+      return newHealth;
+    });
+    
+    // Apply knockback to player (reduced)
+    setPlayer(prevPlayer => {
+      const knockbackX = prevPlayer.x - newDrone.x;
+      const knockbackY = prevPlayer.y - newDrone.y;
+      const knockbackDist = Math.sqrt(knockbackX * knockbackX + knockbackY * knockbackY);
       
-      // Apply knockback to player
-      setPlayer(prevPlayer => {
-        const knockbackX = prevPlayer.x - newDrone.x;
-        const knockbackY = prevPlayer.y - newDrone.y;
-        const knockbackDist = Math.sqrt(knockbackX * knockbackX + knockbackY * knockbackY);
-        
-        if (knockbackDist > 0) {
-          return {
-            ...prevPlayer,
-            vx: knockbackX / knockbackDist * 10,
-            vy: knockbackY / knockbackDist * 10
-          };
-        }
-        
-        return prevPlayer;
-      });
-    }
+      if (knockbackDist > 0) {
+        return {
+          ...prevPlayer,
+          vx: knockbackX / knockbackDist * 5, // Reduced from 8 to 5
+          vy: knockbackY / knockbackDist * 5
+        };
+      }
+      
+      return prevPlayer;
+    });
   }
+  // If shield is active, no damage and no knockback occurs
+}
   
   // Collision with platforms
   for (const platform of platforms) {
@@ -829,25 +848,25 @@ const filteredProjectiles = updatedProjectiles.filter(projectile => {
     return false;
   }
   
-  // Check collision with player for drone projectiles
-  if (projectile.source === 'drone' && checkCircleCollision(projectile, player)) {
-    // If player has shield, block projectile
-    if (playerStats.shield) {
-      return false; // Remove projectile without damage
-    } else {
-      // Damage player
-      setHealth(prev => {
-        const newHealth = prev - 10;
-        if (newHealth <= 0) {
-          setGameState('gameOver');
-          return 0;
-        }
-        return newHealth;
-      });
-      
-      return false;
-    }
+// For projectiles - MUCH less damage
+if (projectile.source === 'drone' && checkCircleCollision(projectile, player)) {
+  // If player has shield, block projectile
+  if (playerStats.shield) {
+    return false; // Remove projectile without damage
+  } else {
+    // Much less damage from projectiles
+    setHealth(prev => {
+      const newHealth = prev - 2; // Reduced from 7 to 2
+      if (newHealth <= 0) {
+        setGameState('gameOver');
+        return 0;
+      }
+      return newHealth;
+    });
+    
+    return false;
   }
+}
   
   // Check collision with platforms
   for (const platform of platforms) {
@@ -879,8 +898,8 @@ if (!canvas) return;
 
 const ctx = canvas.getContext('2d');
 
-// Clear canvas with white background for N-GON style
-ctx.fillStyle = '#fff';
+// Clear canvas with dark background for N-GON style
+ctx.fillStyle = '#111';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 // Draw based on game state
@@ -892,14 +911,16 @@ ctx.textAlign = 'center';
 ctx.fillText('DODGEBALL', canvas.width / 2, canvas.height / 3);
 
 // Draw instructions
-ctx.fillStyle = '#000';
+ctx.fillStyle = '#fff'; // White text for dark background
 ctx.font = '24px Arial';
 ctx.fillText('Press SPACE to Start', canvas.width / 2, canvas.height / 2);
 
 ctx.font = '18px Arial';
 ctx.fillText('Use ARROW KEYS or WASD to move and jump', canvas.width / 2, canvas.height / 2 + 40);
-ctx.fillText('HOLD MOUSE BUTTON for shield', canvas.width / 2, canvas.height / 2 + 70);
-ctx.fillText('Reach the red door to win', canvas.width / 2, canvas.height / 2 + 100);
+ctx.fillText('HOLD MOUSE BUTTON for shield (drains energy)', canvas.width / 2, canvas.height / 2 + 70);
+ctx.fillText('When energy is 0, health will drain!', canvas.width / 2, canvas.height / 2 + 100);
+ctx.fillText('Don\'t fall off platforms - it\'s instant death!', canvas.width / 2, canvas.height / 2 + 130);
+ctx.fillText('Reach the red door to win', canvas.width / 2, canvas.height / 2 + 160);
 } else if (gameState === 'playing' || gameState === 'gameOver' || gameState === 'win') {
 // Apply camera transformation
 ctx.save();
@@ -1135,12 +1156,12 @@ ctx.fillRect(20, 20, 200, 20);
 ctx.fillStyle = health > 50 ? '#2ecc71' : health > 25 ? '#f1c40f' : '#e74c3c';
 ctx.fillRect(20, 20, health * 2, 20);
 
-ctx.strokeStyle = '#000';
+ctx.strokeStyle = '#fff';
 ctx.lineWidth = 2;
 ctx.strokeRect(20, 20, 200, 20);
 
 // Health text
-ctx.fillStyle = '#000';
+ctx.fillStyle = energy > 0 ? '#fff' : '#f55'; // Red text when energy is 0 to warn player
 ctx.font = '16px Arial';
 ctx.textAlign = 'left';
 ctx.fillText(`Health: ${Math.floor(health)}%`, 25, 36);
@@ -1149,18 +1170,25 @@ ctx.fillText(`Health: ${Math.floor(health)}%`, 25, 36);
 ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
 ctx.fillRect(20, 50, 200, 20);
 
-ctx.fillStyle = '#3498db';
+ctx.fillStyle = energy > 20 ? '#3498db' : '#e74c3c'; // Red when energy is low
 ctx.fillRect(20, 50, energy * 2, 20);
 
-ctx.strokeStyle = '#000';
+ctx.strokeStyle = '#fff';
 ctx.lineWidth = 2;
 ctx.strokeRect(20, 50, 200, 20);
 
 // Energy text
-ctx.fillStyle = '#000';
+ctx.fillStyle = energy > 20 ? '#fff' : '#ffff00'; // Yellow warning text when low
 ctx.font = '16px Arial';
 ctx.textAlign = 'left';
 ctx.fillText(`Energy: ${Math.floor(energy)}%`, 25, 66);
+
+// Show warning when energy is depleted
+if (energy <= 0) {
+ctx.fillStyle = '#e74c3c';
+ctx.font = 'bold 14px Arial';
+ctx.fillText('WARNING: Health draining!', 25, 90);
+}
 
 // Mini-map (top-right corner)
 const mapWidth = 150;
@@ -1245,8 +1273,8 @@ ctx.fillText('Press SPACE to Play Again', canvas.width / 2, canvas.height / 2);
 
 return (
 <div style={{ 
-color: 'black', 
-backgroundColor: '#f0f0f0',
+color: '#eee', 
+backgroundColor: '#222',
 padding: '20px',
 minHeight: '100vh',
 display: 'flex',
@@ -1263,9 +1291,9 @@ alignItems: 'center'
   width={canvasSize.width}
   height={canvasSize.height}
   style={{
-    backgroundColor: '#fff',
+    backgroundColor: '#111',
     borderRadius: '5px',
-    boxShadow: '0 0 20px rgba(54, 249, 246, 0.3)' // Cyan glow
+    boxShadow: '0 0 20px rgba(54, 249, 246, 0.5)' // Enhanced cyan glow
   }}
 />
 
@@ -1291,8 +1319,10 @@ alignItems: 'center'
 </div>
 </main>
 
-<footer style={{ fontSize: '0.9rem', color: '#333', marginTop: '20px', fontFamily: 'monospace' }}>
-<p>Use arrow keys or WASD to move and jump. Hold mouse button for shield. Collect power-ups and reach the red door to win.</p>
+<footer style={{ fontSize: '0.9rem', color: '#aaa', marginTop: '20px', fontFamily: 'monospace' }}>
+<p>Use arrow keys or WASD to move and jump. Hold mouse button for shield (drains energy).</p>
+<p>When energy is depleted, health will drain! Don't fall off platforms!</p>
+<p>Collect power-ups and reach the red door to win.</p>
 </footer>
 </div>
 );
