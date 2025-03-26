@@ -15,7 +15,7 @@ const battleDescriptions = {
     title: "Battle of Khe Sanh",
     year: "1968",
     description:
-      "A major and brutal battle in the Tet Offensive, this fight took place in the city of Hue, where the North Vietnamese Army had initially captured the city, but were forced out by the U.S. and South Vietnamese forces. The battle lasted a whopping month and two days filled with brutal fighting from both sides. The U.S. and South Vietnamese forces suffered around 600 deaths, while the North Vietnamese Army suffered around 1000-5000 deaths.",
+      "The Battle of Khe Sanh was a 77 day long siege of the U.S. Marine base located at Khe Sanh. The U.S. had ultimately successfully defended the base against a much larger North Vietnamese Army, but not without casualties on both sides.",
     gameplay:
       "Jump between scattered platforms representing the isolated hilltops of Khe Sanh. Time your movements carefully between the moving platforms while managing your shield against frequent enemy fire."
   },
@@ -37,7 +37,7 @@ const battleDescriptions = {
     title: "Tet Offensive",
     year: "1968",
     description:
-      "The Tet Offensive was a series of battles started by the PAVN (North Vietnamese Army) during the Vietnamese New Year, which is called Tet, in 1968. Overall, the PAVN was repelled, but American support for the war was weakened by these battles.",
+      "The Tet Offensive was a series of battles started by the PAVN(North Vietnamese Army) during the Vietnamese New Year, which is called Tet, in 1968. Overall, the PAVN was repelled, but American support for the war was weakened by these battles.",
     gameplay: "..."
   }
 };
@@ -414,17 +414,20 @@ function App() {
     if (!audioRef.current) {
       audioRef.current = new Audio();
     }
-    stopMusic();
+    // Do not stop music if already playing the correct song
     const musicTrack = battleMusic[levelName];
     if (musicTrack) {
-      audioRef.current.src = `${process.env.PUBLIC_URL}/sounds/${musicTrack}`;
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.5;
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log("Audio playback was prevented:", error);
-        });
+      // Check if the current source already includes the track name
+      if (!audioRef.current.src.includes(musicTrack)) {
+        audioRef.current.src = `${process.env.PUBLIC_URL}/sounds/${musicTrack}`;
+        audioRef.current.loop = true;
+        audioRef.current.volume = 0.5;
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log("Audio playback was prevented:", error);
+          });
+        }
       }
     }
   };
@@ -436,17 +439,17 @@ function App() {
     }
   };
 
-  // Manage music based on gameState
+  // Manage music based on gameState.
+  // Now, if the gameState is 'info' or 'playing', we let the song continue playing.
+  // Only if the state is different (e.g. menu or gameOver) do we stop the music.
   useEffect(() => {
-    if (gameState === 'playing' || gameState === 'info') {
+    if (gameState === 'info' || gameState === 'playing') {
       const levelName = levels[currentLevel].name;
       playLevelMusic(levelName);
     } else {
       stopMusic();
     }
-    return () => {
-      stopMusic();
-    };
+    // No cleanup here so that the music is not interrupted during state changes.
   }, [gameState, currentLevel, levels]);
 
   // Handle canvas resize
@@ -497,7 +500,7 @@ function App() {
           } else if (gameState === 'info') {
             setShowInfo(false);
             setGameState('playing');
-            playLevelMusic(levels[currentLevel].name);
+            // Do not restart music since it should continue playing
           }
           break;
         default:
@@ -589,7 +592,7 @@ function App() {
     };
   }, []);
 
-  // Modified resetGame to include the level key for image lookup
+  // Modified resetGame to include level key for image lookup
   const resetGame = (isFirstLevel = false) => {
     if (isFirstLevel) {
       const randomLevelIndex = Math.floor(Math.random() * levels.length);
@@ -622,7 +625,7 @@ function App() {
     setDoors(levelData.doors);
     setDrones(levelData.drones);
     setPowerUps(levelData.powerUps);
-    // Pass the level key with the battle description
+    // Include the level key with the battle description for image lookup
     setInfoText({ ...battleDescriptions[levelData.name], level: levelData.name });
     setShowInfo(true);
     setGameState('info');
